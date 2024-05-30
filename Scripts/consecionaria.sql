@@ -1,5 +1,4 @@
-CREATE DATABASE IF NOT EXISTS concesionaria;
-USE concesionaria;
+-- Active: 1717090344031@@127.0.0.1@3306@base de datossistema_usuarios
 
 -- Creación de tablas
 CREATE TABLE IF NOT EXISTS consecionaria (
