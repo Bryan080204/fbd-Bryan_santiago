@@ -1,4 +1,3 @@
--- Active: 1717090344031@@127.0.0.1@3306@base de datossistema_usuarios
 
 -- Creación de tablas
 CREATE TABLE IF NOT EXISTS consecionaria (
@@ -15,10 +14,16 @@ CREATE TABLE IF NOT EXISTS Color_auto (
     color VARCHAR(50) NOT NULL
 );
 
+ALTER Table Autos_venta add COLUMN id_color int REFERENCES color_auto(id_color);
+ALTER Table Autos_venta drop COLUMN Color;
+
 CREATE TABLE IF NOT EXISTS Estilo_auto (
     id_Estilo INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     Estilo VARCHAR(50) NOT NULL
 );
+
+ALTER Table Autos_venta add COLUMN id_Estilo int REFERENCES Estilo_auto(id_Estilo);
+ALTER Table Autos_venta drop COLUMN Color;
 
 CREATE TABLE IF NOT EXISTS Autos_venta (
     ID_autos INT NOT NULL AUTO_INCREMENT,
@@ -70,11 +75,15 @@ CREATE TABLE IF NOT EXISTS historial (
 
 -- Inserción de datos
 INSERT INTO Color_auto (color) VALUES
-('azul'), ('verde'), ('rojo')
+('azul'), ('verde'), ('rojo');
+
 ON DUPLICATE KEY UPDATE color=VALUES(color);
 
-INSERT INTO Estilo_auto (Estilo) VALUES
+INSERT INTO Estilo_auto (Estilo) 
+VALUES
 ('sedán'), ('SUV'), ('deportivo'), ('coupé'), ('pick-up'), ('hatchback')
+
+
 ON DUPLICATE KEY UPDATE Estilo=VALUES(Estilo);
 
 INSERT INTO consecionaria (Direccion, Correo, Telefono, rol) VALUES
@@ -114,14 +123,8 @@ VALUES
  ('Javier', 'Peru', 'javier@live.com', 34, '4455667788'),
  ('Lucía', 'Mexico', 'lucia@gmail.com', 25, '5566778899'),
  ('Miguel', 'Uruguay', 'miguel@yahoo.com', 41, '6677889900'),
- ('Sofia', 'Costa Rica', 'sofia@icloud.com', 30, '7788990011')
-AS new
-ON DUPLICATE KEY UPDATE 
-    Nombre = new.Nombre,
-    Direccion = new.Direccion,
-    Correo = new.Correo,
-    edad = new.edad,
-    telefono = new.telefono;
+ ('Sofia', 'Costa Rica', 'sofia@icloud.com', 30, '7788990011');
+ 
 
 INSERT INTO Empleado (correo, Nombre, Direccion, Telefono, Apellido) VALUES
 ('email@kevincruz.com', 'Kevin', 'Oaxaca', '9533478093', 'Hernandez'),
